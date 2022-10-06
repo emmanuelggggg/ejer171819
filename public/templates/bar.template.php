@@ -9,35 +9,33 @@
                     Marcas
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Marca #</a></li>
-                    <li><a class="dropdown-item" href="#">Marca #</a></li>
-                    <li><a class="dropdown-item" href="#">Marca #</a></li>
-                    <li><a class="dropdown-item" href="#">Marca #</a></li>
-                    <li><a class="dropdown-item" href="#">Marca #</a></li>
+                    <?php foreach($marcas as $marca): ?>
+                    <li><a class="dropdown-item" href="pBrand.php?brand=<?php echo $marca->id ?>"><?php echo $marca->name; ?></a></li>
+                    <?php endforeach; ?>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="#">Otras Marcas...</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Categorias
+                    Categorías
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Categoria #</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria #</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria #</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria #</a></li>
-                    <li><a class="dropdown-item" href="#">Categoria #</a></li>
-                    <li>
+                    <?php foreach($categories as $categ): ?>
+                    <li><a class="dropdown-item" href="pCategoria.php?categoria=<?php echo $categ->id ?>"><?php echo $categ->name; ?></a></li>
+                    <?php endforeach; ?><li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="#">Otras Categorías...</a></li>
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link">Cerrar Sesion</a>
+                <a class="nav-link" href="eliminar.php?action=logout">Cerrar Sesión</a>
+            </li>
+            <li class="nav-item">
+                <?php echo $_SESSION['name']?>
             </li>
         </ul>
     </div>

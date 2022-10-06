@@ -1,11 +1,19 @@
 <?php 
-    include '../../app/productController.php';
-    $producto = new ProductosController;
-    if(isset($_GET['categoria'])){
-        $objt = strip_tags(strtr($_GET['categoria']," ","-"));
-        $productos = $producto->cat($objt);
-    }else{
+    include '../../app/AuthController.php';
+    include '../../app/BrandController.php';
+    include '../../app/CategoryController.php';
 
+    $brandss = new BrandController;
+    $marcas = $brandss->getBrands();
+    $categoriess = new CategoryController;
+    $categories = $categoriess->getCategories();
+
+    $productos = $categoriess->getProducts($_GET['categoria']);
+
+    $user = new AuthController; 
+    
+    if($user->isLogin()){
+        header("Location:../../index.php");
     }
     include '../../public/templates/head.template.php'
 ?>
@@ -19,24 +27,27 @@
                 <section>
                     <div class="row">
                         <div class="col">
-                            <label for="">
-                                Productos
-                            </label>
-                        </div>
-                        <div class="col">
-                            <button class="btn float-end btn-primary" data-bs-toggle="modal" data-bs-target="#addProduct">Añadir</button>
+                            Categoría:
                         </div>
                     </div>
                 </section>
                 <section>
-                    <div class="row">
-                        <?php foreach($productos as $lista):
+                <div class="row">
+                        <?php if(isset($productos)){foreach($productos as $lista):
                             $srt = $lista->name.'||'.$lista->description.'||'.$lista->features.'||'.$lista->brand_id.'||'.$lista->id;
-                            include '../../public/templates/products.template.php';
-                        endforeach; ?>
+                            include '../../public/templates/productsWI.template.php';
+                        endforeach; }else{
+                        ?>
+                        
+                        <div class="col bg-pink text-center">
+                             No hay stock de productos en esta categoría
+                        </div>
+                        
+                        <?php
+                        }?>
                     </div>
                 </section>
-                <!-- Modal -->
+                
                 <?php 
                 include '../templates/modal.template.php'
                 ?>

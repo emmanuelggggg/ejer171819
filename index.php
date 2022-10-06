@@ -7,32 +7,35 @@
                 <div class="col-md-6 col-sm-12 justify-content-md-center aling align-items-center">
                     <form method="post" action="app/AuthController.php">
                         <h1 class="text-center">
-                            Iniciar sesion
+                            Iniciar Sesión
                         </h1>
 
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" name="email" class="form-control" placeholder="Usuario">
+                                <input type="text" name="email" class="form-control" placeholder="Usuario" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="password" name="pwd" class="form-control" placeholder="******">
+                                <input type="password" name="pwd" class="form-control" placeholder="******" required>
                             </div>
                         </div>
                         
                         <div class="form-check form-switch">
-                            <!-- aun no funciona jsjs -->
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled">
-                            <label class="form-check-label" for="flexSwitchCheckDisabled">Recordar Usuario</label>
+                            
+                            
+                            
                         </div>
                         <div class="d-grid gap-2 col-3 mx-auto">
                             <button type="submit" class="btn btn-primary">Continuar</button>
                             <input type="hidden" name="action" value="access">
                         </div>
                     </form>
+                    <div class="row " style="width: 100%;">
+                        
+                    </div>
                 </div>
                 <?php include 'public/templates/footer.template.php'?>
             </div>

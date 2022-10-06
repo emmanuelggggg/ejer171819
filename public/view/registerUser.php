@@ -1,76 +1,78 @@
-<?php include 'public/templates/head.template.php'?>
+<?php 
+include '../../app/AuthController.php';
+$user = new AuthController; 
+    
+if(!$user->isLogin()){
+    header("Location:../../index.php");
+}
+include '../templates/head.template.php'
+?>
 
 <body>
     <div class="container">
         <section class="cont">
             <div class="row cont justify-content-md-center aling align-items-center">
                 <div class="col-md-6 col-sm-12 justify-content-md-center aling align-items-center">
-                    <form method="post" action="app/AuthController.php">
+                    <form method="post" action="../../app/AuthController.php" enctype="multipart/form-data">
                         <h1 class="text-center">
-                            Registrar nuevo socio:
+                            Registrar Nuevo Colaborador:
                         </h1>
 
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" name="name" class="form-control" placeholder="Nombre/s">
+                                <input type="text" name="name" class="form-control" placeholder="Nombre/s" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" name="lastname" class="form-control" placeholder="Apellido/s">
+                                <input type="text" name="lastname" class="form-control" placeholder="Apellido/s" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="email" name="email" class="form-control" placeholder="Correo">
+                                <input type="email" name="email" class="form-control" placeholder="Correo" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" name="phone_number" class="form-control" placeholder="Numero de telefono">
+                                <input type="text" name="phone_number" class="form-control" placeholder="Número de telefono" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" name="create_by" class="form-control" placeholder="Creado por:">
+                                <input type="text" name="create_by" class="form-control" placeholder="Creado por:" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" name="role" class="form-control" placeholder="Rol">
+                                <input type="text" name="role" class="form-control" placeholder="Rol" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="password" name="password" class="form-control" placeholder="******">
+                                <input type="password" name="password" class="form-control" placeholder="******" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="file" name="imagen" class="form-control" >
+                                <input type="file" name="imagen" class="form-control"  required>
                             </div>
-                        </div>
-                        
-                        <div class="form-check form-switch">
-                            <!-- aun no funciona jsjs -->
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled">
-                            <label class="form-check-label" for="flexSwitchCheckDisabled">Recordar Usuario</label>
                         </div>
                         <div class="d-grid gap-2 col-3 mx-auto">
                             <button type="submit" class="btn btn-primary">Continuar</button>
-                            <input type="hidden" name="action" value="access">
+                            <input type="hidden" name="action" value="create">
                         </div>
                     </form>
                 </div>
-                <?php include 'public/templates/footer.template.php'?>
+                <?php include '../templates/footer.template.php'?>
             </div>
         </section>
     </div>

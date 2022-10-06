@@ -1,19 +1,33 @@
 <?php
-include '../../app/productController.php';
-$producto = new ProductosController;
+    include '../../app/AuthController.php';
+    include '../../app/BrandController.php';
+    include '../../app/productController.php';
+    include '../../app/CategoryController.php';
+    $brandss = new BrandController;
+    $marcas = $brandss->getBrands();
+    $categoriess = new CategoryController;
+    $categories = $categoriess->getCategories();
+    $user = new AuthController; 
+    
+    if($user->isLogin()){
+        header("Location:../../index.php");
+    }
 
-$slug = strip_tags($_GET['slug']);
 
-$productoEspecifico = $producto->spcfP($slug);
+    $producto = new ProductosController;
 
-$brand = $productoEspecifico->brand;
-$tags = $productoEspecifico->tags;
-$categories = $productoEspecifico->categories;
-$providers = $productoEspecifico->providers;
-$presentations = $productoEspecifico->presentations;
+    $slug = strip_tags($_GET['slug']);
+
+    $productoEspecifico = $producto->spcfP($slug);
+
+    $brand = $productoEspecifico->brand;
+    $tags = $productoEspecifico->tags;
+    $categories = $productoEspecifico->categories;
+    $providers = $productoEspecifico->providers;
+    $presentations = $productoEspecifico->presentations;
 
 
-include '../../public/templates/head.template.php'
+    include '../../public/templates/head.template.php'
 ?>
 
 <body>
@@ -54,7 +68,7 @@ include '../../public/templates/head.template.php'
                                     <div class="row">
                                             <div class="row">
                                                 <div class="col">
-                                                    <a href="">
+                                                    <a href="pBrand.php?brand=' . $brand->id . '">
                                                     ' . $brand->name . '
                                                     </a>
                                                 </div>
@@ -64,7 +78,7 @@ include '../../public/templates/head.template.php'
                                     ';
                             endif;
 
-                            if (sizeof($tags)>0) :
+                            if (sizeof($tags) > 0) :
                                 echo '<div class="row">
                                         <div class="row">
                                             Etiquetas:
@@ -72,7 +86,7 @@ include '../../public/templates/head.template.php'
                                 foreach ($tags as $tag) :
                                     echo '
                                         <div class="col">
-                                        <a href="">
+                                        <a href="pTag.php?tag=' . $tag->id . '">
                                                 ' . $tag->name . '
                                                 </a>
                                         </div>';
@@ -81,7 +95,7 @@ include '../../public/templates/head.template.php'
                                 echo '</div>';
                             endif;
 
-                            if (sizeof($categories)>0) :
+                            if (sizeof($categories) > 0) :
                                 echo '<div class="row">
                                         <div class="row">
                                             Categorias:
@@ -89,7 +103,7 @@ include '../../public/templates/head.template.php'
                                 foreach ($categories as $category) :
                                     echo '
                                         <div class="col">
-                                        <a href="pCategoria.php?categoria='.$category->name.'">
+                                        <a href="pCategoria.php?categoria=' . $category->id . '">
                                             ' . $category->name . '
                                                 </a>
                                         </div>';
