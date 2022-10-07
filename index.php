@@ -1,5 +1,8 @@
 <?php include 'public/templates/head.template.php'?>
+<?php
+    include_once "app/config.php";
 
+?>
 <body>
     <div class="container">
         <section class="cont">
@@ -32,7 +35,10 @@
                             <button type="submit" class="btn btn-primary">Continuar</button>
                             <input type="hidden" name="action" value="access">
                         </div>
+
+                        <input type="hidden" name="super_token" value="<?= $_SESSION['super_token']?>">
                     </form>
+
                     <div class="row " style="width: 100%;">
                         
                     </div>
