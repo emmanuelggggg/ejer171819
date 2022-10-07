@@ -4,7 +4,9 @@
         $_SESSION['super_token'] = md5(uniqid(mt_rand(), true));
     }
 
-    
+    if(!defined('BASE_PATH')){
+        defined('BASE_PATH','http://localhost:8888/');
+    }
 
 
 ?>
