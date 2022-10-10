@@ -1,14 +1,20 @@
-<?php include 'public/templates/head.template.php'?>
-<?php
-    include_once "app/config.php";
+<?php 
+include 'app/config.php';
+include 'app/AuthController.php';
+$user = new AuthController; 
+    
+if(!$user->isLogin()){
+    header("Location:".BASE_PATH."public/view/productos");
+}
 
-?>
+include 'public/templates/head.template.php'?>
+<?php ?>
 <body>
     <div class="container">
         <section class="cont">
             <div class="row cont justify-content-md-center aling align-items-center">
                 <div class="col-md-6 col-sm-12 justify-content-md-center aling align-items-center">
-                    <form method="post" action="app/AuthController.php">
+                    <form method="post" action="<?= BASE_PATH?>auth">
                         <h1 class="text-center">
                             Iniciar Sesión
                         </h1>
@@ -27,18 +33,14 @@
                         </div>
                         
                         <div class="form-check form-switch">
-                            
-                            
-                            
+                           
                         </div>
                         <div class="d-grid gap-2 col-3 mx-auto">
-                            <button type="submit" class="btn btn-primary">Continuar</button>
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
                             <input type="hidden" name="action" value="access">
+                            <input type="hidden" name="super_token" value="<?php echo $_SESSION['super_token'];?>">
                         </div>
-
-                        <input type="hidden" name="super_token" value="<?= $_SESSION['super_token']?>">
                     </form>
-
                     <div class="row " style="width: 100%;">
                         
                     </div>

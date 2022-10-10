@@ -3,7 +3,7 @@ include '../../app/AuthController.php';
 $user = new AuthController; 
     
 if(!$user->isLogin()){
-    header("Location:../../index.php");
+    header("Location:".BASE_PATH."public/view/productos");
 }
 include '../templates/head.template.php'
 ?>
@@ -15,7 +15,7 @@ include '../templates/head.template.php'
                 <div class="col-md-6 col-sm-12 justify-content-md-center aling align-items-center">
                     <form method="post" action="../../app/AuthController.php" enctype="multipart/form-data">
                         <h1 class="text-center">
-                            Registrar Nuevo Colaborador:
+                            Registrar nuevo colaborador:
                         </h1>
 
                         <div class="row mb-3">
@@ -39,7 +39,7 @@ include '../templates/head.template.php'
                         <div class="row mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                <input type="text" name="phone_number" class="form-control" placeholder="Número de telefono" required>
+                                <input type="text" name="phone_number" class="form-control" placeholder="Numero de teléfono" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -67,8 +67,9 @@ include '../templates/head.template.php'
                             </div>
                         </div>
                         <div class="d-grid gap-2 col-3 mx-auto">
-                            <button type="submit" class="btn btn-primary">Continuar</button>
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
                             <input type="hidden" name="action" value="create">
+                            <input type="hidden" name="super_token" value="<?php echo $_SESSION['super_token'];?>">
                         </div>
                     </form>
                 </div>

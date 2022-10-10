@@ -1,5 +1,10 @@
-Options +FollowSymlinks -MultiViews
-RewroteEngine on
+Options +FollowSymLinks -MultiViews
 
-#RULES
-RewriteRule ^auth$ app/AuthController.php
+RewriteEngine on
+#rules
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+RewriteRule auth http://localhost/U4EJ171819/app/AuthController.php
+RewriteRule ress http://localhost/U4EJ171819/app/AuthController.php
+ErrorDocument 404 http://localhost/U4EJ171819/public/view/notFound.php    

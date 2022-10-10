@@ -13,7 +13,7 @@
     $user = new AuthController; 
     
     if($user->isLogin()){
-        header("Location:../../index.php");
+        header("Location:../../index");
     }
     include '../../public/templates/head.template.php'
 ?>
@@ -35,19 +35,19 @@
                 <div class="row">
                         <?php if(isset($productos)){foreach($productos as $lista):
                             $srt = $lista->name.'||'.$lista->description.'||'.$lista->features.'||'.$lista->brand_id.'||'.$lista->id;
-                            include '../../public/templates/productsWI.template.php';
+                            include '../../public/templates/products.template.php';
                         endforeach; }else{
                         ?>
                         
                         <div class="col bg-pink text-center">
-                             No hay stock de productos en esta categoría
+                            Lo sentimos, no hay stock disponible.
                         </div>
                         
                         <?php
                         }?>
                     </div>
                 </section>
-                
+                <!-- Modal -->
                 <?php 
                 include '../templates/modal.template.php'
                 ?>

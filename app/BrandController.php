@@ -1,6 +1,5 @@
 <?php
-include_once "config.php";
-
+include_once 'config.php';
     Class BrandController{
         public function getBrands(){
             $curl = curl_init();

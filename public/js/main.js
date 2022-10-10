@@ -1,19 +1,42 @@
-function alerta(n) {
+function alerta(n, sptkn) {
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Estás por realizar una eliminación,¿Deseas eliminarlo?',
+        text: "No podras deshacer esta accion.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '<a class="dropdown-item" href="eliminar.php?idEliminar=' + n + '">Yes, delete it!</a>'
+        confirmButtonText: `Eliminar`
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-            )
+            var data = new FormData();
+            data.append('idEliminar', n);
+            data.append('action', 'delete');
+            data.append('super_token', sptkn);
+            axios({
+                method: "POST",
+                url: "../../app/productController.php",
+                data
+            }).then((response) => {
+                if (response.status === 200) {
+                    Swal.fire(
+                        'DELETED!',
+                        'El producto fue eliminado correctamente.',
+                        'success'
+                    );
+                    location.reload();
+                } else {
+                    Swal.fire(
+                        'Falló la eliminación',
+                        'El producto no se pudo eliminar, intentalo más tarde.',
+                        'Fail Delete'
+                    );
+                }
+            }).catch((error) => {
+                if (error.response) {
+                    alert('o');
+                }
+            });
         }
     })
 }
@@ -25,6 +48,6 @@ function llenarDatos(datos) {
     document.getElementById('nameU').value = data[0];
     document.getElementById('descriptionU').value = data[1];
     document.getElementById('featuresU').value = data[2];
-    document.getElementById('brand_idU').value = data[3];
-    document.getElementById('objetivoId').value = data[4];
+    document.getElementById('numeral').value = data[4];
+
 };

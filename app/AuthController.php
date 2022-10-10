@@ -1,41 +1,41 @@
 <?php
-include_once "config.php";
+
+include_once 'config.php';
 
 if (isset($_POST["action"]) && isset($_POST["email"])) {
-    if(isset($_POST['super_token']) && $_POST['super_token'] == $_SESSION['super_token']){
-        switch ($_POST['action']) {
-                case 'access':
-                    $authcontroller = new AuthController();
-                    $authcontroller->login($_POST["email"], $_POST["pwd"]);
-                    break;
-                case 'create':
-                    $name = strip_tags($_POST['name']);
-                    $lastname = strip_tags($_POST['lastname']);
-                    $email = strip_tags($_POST['email']);
-                    $phone_number = strip_tags($_POST['phone_number']);
-                    $create_by = strip_tags($_POST['create_by']);
-                    $role = strip_tags($_POST['role']);
-                    $password = strip_tags($_POST['password']);
-                    $profile_photo = new CURLFILE($_FILES['imagen']['tmp_name']);
-                    $authcontroller = new AuthController();
-                    $authcontroller->register($name, $lastname, $email, $phone_number, $create_by, $role, $password, $profile_photo);
-                    break;
-                case 'recovery':
-                    $authcontroller = new AuthController();
-                    $authcontroller->recovery($_POST["email"]);
-                    break;
-            }
+    // var_dump($_POST['super_token']+$_SESSION['super_token']);
+    if (isset($_POST['super_token']) && $_POST['super_token'] == $_SESSION['super_token']) {
+
+        switch ($_POST["action"]) {
+            case 'access':
+                $authcontroller = new AuthController();
+                $authcontroller->login($_POST["email"], $_POST["pwd"]);
+                break;
+            case 'create':
+                $name = strip_tags($_POST['name']);
+                $lastname = strip_tags($_POST['lastname']);
+                $email = strip_tags($_POST['email']);
+                $phone_number = strip_tags($_POST['phone_number']);
+                $create_by = strip_tags($_POST['create_by']);
+                $role = strip_tags($_POST['role']);
+                $password = strip_tags($_POST['password']);
+                $profile_photo = new CURLFILE($_FILES['imagen']['tmp_name']);
+                $authcontroller = new AuthController();
+                $authcontroller->register($name, $lastname, $email, $phone_number, $create_by, $role, $password, $profile_photo);
+                break;
+            case 'recovery':
+                $authcontroller = new AuthController();
+                $authcontroller->recovery($_POST["email"]);
+                break;
+        }
     }
-
-    
 }
-
-
 
 class AuthController
 {
-    public function isLogin(){
-        if(isset($_SESSION['token'])){
+    public function isLogin()
+    {
+        if (isset($_SESSION['token'])) {
             return false;
         }
         return true;
@@ -60,7 +60,6 @@ class AuthController
         curl_close($curl);
         $response = json_decode($response);
         if (isset($response->code) &&  $response->code > 0) {
-            session_start();
             $_SESSION['id'] = $response->data->id;
             $_SESSION['name'] = $response->data->name;
             $_SESSION['lastname'] = $response->data->lastname;
@@ -68,9 +67,9 @@ class AuthController
             $_SESSION['token'] = $response->data->token;
             $_SESSION['email'] = $response->data->email;
 
-            header("Location:../public/view/productos.php");
+            header("Location:".BASE_PATH."public/view/productos.php");
         } else {
-            header("Location:../?error=true");
+            header("Location:".BASE_PATH."?error=true");
         }
     }
 
@@ -105,7 +104,7 @@ class AuthController
         if (isset($response->code) &&  $response->code > 0) {
             $this->login($email, $password);
         } else {
-            header("Location:../?error=true");
+            header("Location:".BASE_PATH."?error=true");
         }
     }
     public function recovery($email)
@@ -128,9 +127,9 @@ class AuthController
         curl_close($curl);
         $response = json_decode($response);
         if (isset($response->code) &&  $response->code > 0) {
-            header("Location:../index.php");
+            header("Location:".BASE_PATH."index");
         } else {
-            header("Location:../?error=true");
+            header("Location:".BASE_PATH."?error=true");
         }
     }
 
@@ -151,7 +150,7 @@ class AuthController
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array('email' => $_SESSION['email']),
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer '.$_SESSION['token'],
+                'Authorization: Bearer ' . $_SESSION['token'],
             ),
         ));
 
@@ -159,9 +158,9 @@ class AuthController
         curl_close($curl);
         $response = json_decode($response);
         if (isset($response->code) &&  $response->code > 0) {
-            $_SESSION= array();
+            $_SESSION = array();
             session_destroy();
-            header("Location:../../index.php");
+            header("Location:".BASE_PATH."index");
         } else {
             var_dump($_SESSION['token']);
         }

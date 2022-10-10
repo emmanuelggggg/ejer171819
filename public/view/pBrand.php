@@ -12,7 +12,7 @@
     $user = new AuthController; 
     
     if($user->isLogin()){
-        header("Location:../../index.php");
+        header("Location:../../index");
     }
     include '../../public/templates/head.template.php'
 ?>
@@ -26,7 +26,7 @@
                 <section>
                     <div class="row">
                         <div class="col">
-                            Categoria:
+                            Categoría:
                         </div>
                     </div>
                 </section>
@@ -39,7 +39,7 @@
                         ?>
                         
                         <div class="col bg-pink text-center">
-                           No hay productos en stock de esta categoría
+                            Lo sentimos, no hay stock disponible.
                         </div>
                         
                         <?php
